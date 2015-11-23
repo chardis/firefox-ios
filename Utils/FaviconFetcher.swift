@@ -133,7 +133,10 @@ public class FaviconFetcher : NSObject, NSXMLParserDelegate {
 
         var fav = Favicon(url: url, type: icon.type)
         if let url = url.asURL {
-            manager.downloadImageWithURL(url, options: SDWebImageOptions.LowPriority, progress: nil, completed: { (img, err, cacheType, success, url) -> Void in
+            manager.downloadImageWithURL(url,
+                options: SDWebImageOptions.LowPriority,
+                progress: nil,
+                completed: { (img, err, cacheType, success, url) -> Void in
                 fav = Favicon(url: url.absoluteString,
                     type: icon.type)
 
