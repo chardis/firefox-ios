@@ -98,7 +98,20 @@ class HomePanelViewController: UIViewController, UITextFieldDelegate, HomePanelD
             make.left.right.bottom.equalTo(self.view)
         }
 
-        self.panels = HomePanels().enabledPanels
+        //Modify the elements in panels for zh-cn locale
+        let locale = NSLocale.currentLocale()
+        let customizedPanel = locale.localeIdentifier != "zh_CN" ? [] : [
+            HomePanelDescriptor(
+                makeViewController: { profile in
+                    let navigator = NavigatorPanel()
+                    navigator.profile = profile
+                    return navigator
+                },
+                imageName: "Navigator",
+                accessibilityLabel: "导航页")
+        ]
+        self.panels = customizedPanel + HomePanels().enabledPanels
+
         updateButtons()
 
         // Gesture recognizer to dismiss the keyboard in the URLBarView when the buttonContainerView is tapped
